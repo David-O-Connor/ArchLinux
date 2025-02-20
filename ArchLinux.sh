@@ -38,29 +38,9 @@ select_disk() {
 
 # Function to list available locales and prompt user to select one
 select_locale() {
-    echo "Listing available locales..."
-    
-    # Extract available locales from the system
-    available_locales=$(locales -a | sort)
-    
-    if [ -z "$available_locales" ]; then
-        echo "No locales found!"
-        exit 1
-    fi
-    
-    # Show available locales
-    echo "$available_locales"
-    
-    # Ask the user to choose a locale
-    prompt_user "Enter the locale to use (e.g., 'en_US.UTF-8')" locale
-
-    # Check if the selected locale is valid
-    if [[ ! "$available_locales" =~ "$locale" ]]; then
-        echo "Invalid locale selected. Exiting."
-        exit 1
-    fi
-
-    echo "You have selected $locale."
+    # Set locale for Ireland directly
+    locale="en_IE.UTF-8"
+    echo "Setting locale to $locale."
 }
 
 # Step 1: Basic Information
@@ -71,7 +51,7 @@ prompt_user "Enter your password" password
 
 # Step 2: Locale and timezone
 echo "Setting up your locale and timezone..."
-prompt_user "Enter your timezone (e.g., 'America/New_York')" timezone
+prompt_user "Enter your timezone (e.g., 'Europe/Dublin')" timezone
 echo "Setting the timezone..."
 ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
 hwclock --systohc
